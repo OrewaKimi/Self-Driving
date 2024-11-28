@@ -1,17 +1,18 @@
-const canvas = document.getElementById("myCanvas")
-canvas.height = window.innerHeight
-canvas.width = 200
+const canvas = document.getElementById("myCanvas");
+const ctx = canvas.getContext("2d");
 
-const ctx = canvas.getContext('2d')
-const car = new Car(100, 100, 30, 50)
+canvas.width = 200;
+canvas.height = 1000;
 
+const road = new Road(canvas.width / 2, 100);
+const car = new Car(road.getLaneCenter(1), 200, 30, 50);
 
-animate()
+animate();
 
-function animate(){
-    car.update()
-    canvas.height = window.innerHeight
-    car.draw(ctx)
-
-    requestAnimationFrame(animate)
+function animate() {
+    requestAnimationFrame(animate);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    road.draw(ctx);
+    car.update();
+    car.draw(ctx);
 }
